@@ -1,0 +1,18 @@
+name: role-sync
+version: 'v1.0.0'
+main: org.mad4me.roleSync.RoleSync
+api-version: '1.21'
+prefix: rolesync
+author: Mad4Me
+description: "Just a role sync plugin"
+folia-supported: true
+commands:
+  syncrole:
+    description: "syncs roles with discord"
+  syncrole-reload:
+    description: "reloads the plugin"
+permissions:
+  syncroles.sub:
+    description: "Subscribed role perms"
+  syncroles.reload:
+    description: "Reloads the plugin"
