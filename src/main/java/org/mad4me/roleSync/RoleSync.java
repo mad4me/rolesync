@@ -30,7 +30,6 @@ public final class RoleSync extends JavaPlugin {
     @Override
     public void onEnable() {
 
-        // TODO Check if luckperms is enabled
         this.saveDefaultConfig();
         FileConfiguration config = this.getConfig();
 

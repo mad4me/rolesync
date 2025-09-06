@@ -11,6 +11,7 @@ import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 
+import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.mad4me.roleSync.discordCommands.DiscordSyncRole;
 import org.mad4me.roleSync.discordCommands.ModalSyncRole;
@@ -28,6 +29,7 @@ public class Discord {
     public Discord(Map<String, Integer> codes, SQLite sql, FileConfiguration config) throws InterruptedException {
         this.config = config;
         this.jda = JDABuilder.createDefault(config.getString("token"))
+                .enableCache(CacheFlag.CLIENT_STATUS)
                 .enableIntents(GatewayIntent.MESSAGE_CONTENT)
                 .enableIntents(GatewayIntent.GUILD_MEMBERS)
                 .addEventListeners(new DiscordSyncRole()).addEventListeners(new ModalSyncRole(codes, sql, this)).build().awaitReady();
@@ -52,7 +54,7 @@ public class Discord {
             EmbedBuilder embed = new EmbedBuilder();
             embed
                     .setTitle("Синхронизировать роли")
-                    .setDescription("Для того чтобы синхронизировать роли, введите в майнкрафте `/syncoroles`, нажмите на кнопку ниже и введите код в открывшемся окне. ")
+                    .setDescription("Для того чтобы синхронизировать роли, введите в майнкрафте `/syncorole`, нажмите на кнопку ниже и введите код в открывшемся окне. ")
                     .setColor(0xff0083);
 
             channel.sendMessage("").setEmbeds(embed.build()).addActionRow(
