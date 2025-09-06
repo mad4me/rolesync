@@ -11,7 +11,7 @@ import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 
-import net.dv8tion.jda.api.utils.cache.CacheFlag;
+import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.mad4me.roleSync.discordCommands.DiscordSyncRole;
 import org.mad4me.roleSync.discordCommands.ModalSyncRole;
@@ -29,7 +29,7 @@ public class Discord {
     public Discord(Map<String, Integer> codes, SQLite sql, FileConfiguration config) throws InterruptedException {
         this.config = config;
         this.jda = JDABuilder.createDefault(config.getString("token"))
-                .enableCache(CacheFlag.CLIENT_STATUS)
+                .setMemberCachePolicy(MemberCachePolicy.ALL)
                 .enableIntents(GatewayIntent.MESSAGE_CONTENT)
                 .enableIntents(GatewayIntent.GUILD_MEMBERS)
                 .addEventListeners(new DiscordSyncRole()).addEventListeners(new ModalSyncRole(codes, sql, this)).build().awaitReady();

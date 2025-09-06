@@ -73,7 +73,7 @@ public class ModalSyncRole extends ListenerAdapter {
                         }
                     });
 
-                    codes.remove(code);
+                    codes.remove(playerUuid);
 
                 } else {
                     event.reply("Код не действителен").setEphemeral(true).queue();

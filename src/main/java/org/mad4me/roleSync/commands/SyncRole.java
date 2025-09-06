@@ -1,5 +1,7 @@
 package org.mad4me.roleSync.commands;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -29,20 +31,25 @@ public class SyncRole implements CommandExecutor {
 
         String uuid = ((Player) commandSender).getUniqueId().toString();
 
+        var mm = MiniMessage.miniMessage();
+
         if (codes.containsKey(uuid)) {
-            commandSender.sendMessage("Вы уже отправляли код: " + codes.get(uuid));
+            Component parsed = mm.deserialize("<gradient:#FF0484:#ffffff>Zeffyr</gradient> <#7c7c7c>> <gradient:#EDEDED:#bebebe>Вы уже вводили код - " + codes.get(uuid) + "</gradient>" );
+            commandSender.sendMessage(parsed);
             return false;
         }
 
         if (sql.isPlayerLinked(uuid)) {
-            commandSender.sendMessage("Ваш акаунт уже привязан.");
+            Component parsed =  mm.deserialize("<gradient:#FF0484:#ffffff>Zeffyr</gradient> <#7c7c7c>> <gradient:#EDEDED:#bebebe>Ваш акаунт уже привязан.</gradient>");
+            commandSender.sendMessage(parsed);
             return false;
         }
 
         Integer code = generateCode();
         codes.put(uuid, code);
 
-        commandSender.sendMessage("Код для верификаций: " + codes.get(uuid));
+        Component parsed =  mm.deserialize("<gradient:#FF0484:#ffffff>Zeffyr</gradient> <#7c7c7c>> <gradient:#EDEDED:#bebebe>Код верификации - " + codes.get(uuid) +"</gradient>");
+        commandSender.sendMessage(parsed);
         return true;
     }
 
