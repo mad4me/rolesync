@@ -10,8 +10,12 @@ token: ""
 # Айди роль сабки
 premium_role_id:
 
+# Айди роль игрока
+user_role_id:
+
 # Айди сервера
 server_id:
 
 # Айди канала с интеракцией
 channel_id:
+

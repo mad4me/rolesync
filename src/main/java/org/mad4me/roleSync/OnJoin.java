@@ -22,10 +22,10 @@ public class OnJoin implements Listener {
         if (sql.isPlayerLinked(uuid)) {
             if (hasSubscribePermission) {
                 // If the user has perms but doesn't have the role, we add it
-                if (!bot.hasPremiumRole(discordId)) bot.giveRole(discordId);
+                if (!bot.hasSubRole(discordId)) bot.giveSub(discordId);
             } else {
                 // If the user doesn't have perms but has the role, we remove it it
-                if (bot.hasPremiumRole(discordId)) bot.removeRole(discordId);
+                if (bot.hasSubRole(discordId)) bot.removeSub(discordId);
             }
         }
     }

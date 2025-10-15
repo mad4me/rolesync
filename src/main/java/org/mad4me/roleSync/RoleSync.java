@@ -66,7 +66,7 @@ public final class RoleSync extends JavaPlugin {
                     if (!hasPermission(user, "syncroles.sub")) {
                         // If the user has the premium role, but doesn't have the permission, we remove the role
                         this.getLogger().log(Level.INFO, user.getUsername() + " isn't a sub, removing role.");
-                        discordBot.removeRole(discordId);
+                        discordBot.removeSub(discordId);
                     }
                 }
             });

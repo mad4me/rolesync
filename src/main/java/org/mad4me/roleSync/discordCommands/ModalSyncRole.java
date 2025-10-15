@@ -66,10 +66,14 @@ public class ModalSyncRole extends ListenerAdapter {
                     UUID uuid = UUID.fromString(playerUuid);
 
                     CompletableFuture<User> userFuture = userManager.loadUser(uuid);
-
                     userFuture.thenAcceptAsync(user -> {
+                        long discordId = sql.getDiscordId(playerUuid);
+
                         if (hasPermission(user, "syncroles.sub")) {
-                            bot.giveRole(sql.getDiscordId(playerUuid));
+                            bot.giveSub(discordId);
+                        } else if (!bot.hasUserRole(discordId)) {
+                            bot.giveUser(discordId);
+                            // TODO change username to name of the player
                         }
                     });
 

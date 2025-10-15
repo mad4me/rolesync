@@ -70,23 +70,27 @@ public class Discord {
         return guild.getMemberById(discordId);
     }
 
-    public void giveRole(long discordId) {
+    public void giveSub(long discordId) {
         Member member = getMember(discordId);
         guild.addRoleToMember(member, jda.getRoleById(config.getString("premium_role_id"))).queue();
     }
 
-    public void removeRole(long discordId) {
+    public void giveUser(long discordId) {
+        Member member = getMember(discordId);
+        guild.addRoleToMember(member, jda.getRoleById(config.getString("user_role_id"))).queue();
+    }
+
+    public void removeSub(long discordId) {
         Member member = getMember(discordId);
         guild.removeRoleFromMember(member, jda.getRoleById(config.getString("premium_role_id"))).queue();
     }
 
-    public boolean hasPremiumRole(long discordId) {
+    public boolean hasSubRole(long discordId) {
         Member member = getMember(discordId);
 
         if (member == null) return false;
 
         List<Role> memberRoles = member.getRoles();
-
         for (Role role: memberRoles) {
             if (role == jda.getRoleById(config.getString("premium_role_id"))) return true;
         }
@@ -94,7 +98,22 @@ public class Discord {
         return false;
     }
 
+    public boolean hasUserRole(long discordId) {
+        Member member = getMember(discordId);
+
+        if (member == null) return false;
+
+        List<Role> memberRoles = member.getRoles();
+        for (Role role: memberRoles) {
+            if (role == jda.getRoleById(config.getString("premium_role_id"))) return true;
+        }
+
+        return false;
+    }
+
+
     public void stop() {
+        // TODO fix error when shutting down5
         jda.shutdownNow();
     }
 }
